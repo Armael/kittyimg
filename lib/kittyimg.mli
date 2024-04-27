@@ -26,6 +26,7 @@ type display_opts
 
 val display_opts :
   ?placement:Placement.t ->
+  ?virtual_placement:unit ->
   ?x:int -> ?y:int ->
   ?w:int -> ?h:int ->
   ?xoff:int -> ?yoff:int ->

@@ -42,6 +42,7 @@ end
 
 type display_opts = {
   placement : Placement.t option;
+  virtual_placement : unit option;
   (* source rectangle *)
   x : int option;
   y : int option;
@@ -62,7 +63,7 @@ type display_opts = {
 }
 
 let display_opts
-    ?placement
+    ?placement ?virtual_placement
     ?x ?y ?w ?h
     ?xoff ?yoff
     ?cstretch ?rstretch
@@ -71,12 +72,13 @@ let display_opts
     ?quiet
     ()
   =
-  { placement; x; y; w; h; xoff; yoff;
+  { placement; virtual_placement; x; y; w; h; xoff; yoff;
     cstretch; rstretch; move_cursor; zindex; quiet }
 
 let items_of_display_opts opts =
   [
     'p', (opts.placement :> int option);
+    'U', Option.map (fun () -> 1) opts.virtual_placement;
     'x', opts.x;
     'y', opts.y;
     'w', opts.w;
