@@ -2,3 +2,21 @@
  (libraries base64)
  (name kittyimg)
  (public_name kittyimg))
+
+(rule
+  (target rowcolumn-diacritics.txt)
+  (action
+    (with-stdout-to
+      %{target}
+      (bash "curl https://sw.kovidgoyal.net/kitty/_downloads/f0a0de9ec8d9ff4456206db8e0814937/rowcolumn-diacritics.txt"))))
+
+(rule
+  (target rowcolumns.ml)
+  (deps rowcolumn-diacritics.txt)
+  (action
+    (with-stdout-to
+      %{target}
+      (progn
+        (echo "let diacritics = [|\n")
+        (bash "tail -n +14 %{deps} | less | cut -d';' -f1 | sed 's/.*/  Uchar.of_int 0x\\0;/g'")
+        (echo "|]")))))
