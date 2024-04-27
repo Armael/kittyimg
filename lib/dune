@@ -1,7 +1,15 @@
 (library
  (libraries base64)
  (name kittyimg)
- (public_name kittyimg))
+ (public_name kittyimg)
+ (modules kittyimg))
+
+(library
+  (libraries kittyimg notty unix)
+  (name nottyimg)
+  (public_name kittyimg.notty)
+  (modules :standard \ kittyimg)
+  (foreign_stubs (language c) (names more_winsize)))
 
 (rule
   (target rowcolumn-diacritics.txt)

@@ -1,3 +1,9 @@
 (executable
  (name icat)
+ (modules icat)
  (libraries kittyimg stb_image))
+
+(executable
+  (name nottycat)
+  (modules nottycat)
+  (libraries notty notty.unix kittyimg.notty stb_image))
